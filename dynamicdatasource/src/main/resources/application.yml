@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: dynamic-datasource
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test1
+    username: root
+    password:
+druid:
+  validationQuery: SELECT 1
+  initialSize: 10
+  minIdle: 10
+  maxActive: 200
+  minEvictableIdleTimeMillis: 180000
+  testOnBorrow: true
+  testWhileIdle: true
+  removeAbandoned: true
+  removeAbandonedTimeout: 1800
+  logAbandoned: true
+  poolPreparedStatements: true
+  maxOpenPreparedStatements: 100
+custom:
+  datasource:
+    names: ds1,ds2
+    ds1:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test1
+      username: root
+      password:
+    ds2:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test2
+      username: root
+      password:
+logging:
+  level: debug
