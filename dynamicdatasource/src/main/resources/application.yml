@@ -5,7 +5,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/test1
     username: root
-    password:
+    password: felix19920320
 druid:
   validationQuery: SELECT 1
   initialSize: 10
@@ -26,11 +26,11 @@ custom:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/test1
       username: root
-      password:
+      password: felix19920320
     ds2:
       driver-class-name: com.mysql.jdbc.Driver
       url: jdbc:mysql://localhost:3306/test2
       username: root
-      password:
+      password: felix19920320
 logging:
   level: debug
