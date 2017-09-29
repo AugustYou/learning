@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/activiti_learning
     username: root
-    password:
+    password: felix19920320
     druid:
       validationQuery: SELECT 1
       initialSize: 10
