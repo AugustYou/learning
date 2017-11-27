@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/activiti_learning
+    url: jdbc:mysql://localhost:3306/slife
     username: root
     password: felix19920320
     druid:
