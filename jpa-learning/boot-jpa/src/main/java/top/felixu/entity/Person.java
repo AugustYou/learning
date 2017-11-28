@@ -1,6 +1,7 @@
 package top.felixu.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 /**
@@ -10,12 +11,14 @@ import javax.persistence.*;
 @Table(name = "person")
 @Entity
 @Data
+@NamedQuery(name = "Person.findByName", query = "select p.name from Person p where p.name = ?1")
 public class Person {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "snowFlakeId")
+    @GenericGenerator(name = "snowFlakeId", strategy = "top.felixu.idworker.SnowflakeId")
     @Column(name = "id")
-    private Integer id;
+    private String id;
     @Column(name = "name")
     private String name;
     @Column(name = "age")

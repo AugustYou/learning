@@ -11,5 +11,17 @@ import java.util.List;
  */
 public interface PersonRepository extends JpaRepository<Person, Integer> {
 
-//    List<Person>
+    /**
+     * 通过地址查询
+     * @param address
+     * @return
+     */
+    List<Person> findByAddress(String address);
+
+    /**
+     * 根据名字查询
+     * @param name
+     * @return
+     */
+    String findByName(String name);
 }
