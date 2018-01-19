@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <h1 v-text="title"></h1>
-    <input v-model="newItem" v-on:keyup.enter="addNew"/>
+    <input v-model="newItem" @keyup.enter="addNew"/>
     <ul>
       <li v-for="item in items" v-bind:class="{finished: item.isFinished}" v-on:click="toggleFinish(item)">{{item.lable}}</li>
     </ul>
