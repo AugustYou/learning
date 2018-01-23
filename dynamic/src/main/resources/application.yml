@@ -1,0 +1,32 @@
+spring:
+  # 主数据源。可写可读
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test1?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: felix19920320
+    type: com.alibaba.druid.pool.DruidDataSource
+# DynamicDataSource
+custom:
+  datasource:
+    names: ds1
+    # 多数据源只读功能
+    ds1:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/test2?useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: root
+      password: felix19920320
+      type: com.alibaba.druid.pool.DruidDataSource
+druid:
+  validationQuery: SELECT 1
+  initialSize: 10
+  minIdle: 10
+  maxActive: 200
+  minEvictableIdleTimeMillis: 180000
+  testOnBorrow: true
+  testWhileIdle: true
+  removeAbandoned: true
+  removeAbandonedTimeout: 1800
+  logAbandoned: true
+  poolPreparedStatements: true
+  maxOpenPreparedStatements: 100
