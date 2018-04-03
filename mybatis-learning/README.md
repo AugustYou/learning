@@ -1,3 +1,10 @@
+# Module描述
+**felixu-mybatis**是自己手动实现V1和V2模块
+**generator**是mybatis代码自动生成模块
+**jdbc**是原生jdbc连接数据库操作
+**mybatis**为mybatis编程式操作
+**mybatis-spring**是与Spring集成使用
+# 习题
 ## 1
 1. Mapper在spring管理下其实是单例，为什么可以是一个
 单例？ SCOPE -> application     
@@ -27,7 +34,7 @@
 3. MyBatis的plugin实现机制
 **操作数据库的是代理对象，在执行查询前，先找到plugin列表，依次执行之后，才会去执行数据库操作**
 4. lazy loading 是怎么做到的？
-
+**应该是个代理**
 ## 5
 1. 手写1.0
 **见felixu-mybatis这个module的top.felixu.v1**
