@@ -36,7 +36,7 @@ public class MybatisConfig {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
         sqlSessionFactoryBean.setTypeHandlers(new TypeHandler[]{new MySpringTypeHandler(), new TestSpringTypeHandler()});
-//        sqlSessionFactoryBean.setPlugins(new Interceptor[]{new MySpringInterceptorOne(), new MySpringInterceptorTwo()});
+        sqlSessionFactoryBean.setPlugins(new Interceptor[]{new MySpringInterceptorOne(), new MySpringInterceptorTwo()});
         return sqlSessionFactoryBean.getObject();
     }
 

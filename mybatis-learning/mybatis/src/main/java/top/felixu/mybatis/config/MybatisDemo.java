@@ -13,30 +13,32 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MybatisDemo {
 
-    public static void main(String[] args) {
-        List<String> strs = new ArrayList<>();
-        strs.add("1");
-        strs.add("2");
-        strs.stream().forEach(s -> System.out.println(s));
-    }
-
-//    public static void main(String[] args) throws Exception {
-//        SqlSession sqlSession = getSqlSession();
-////        Person person = new Person();
-////        person.setId(6);
-////        person.setName("felixu");
-////        person.setAddress("Mars");
-////        person.setAge(26);
-////
-////        insert(sqlSession, person);
-////        sqlSession.commit();
-////        sqlSession.close();
-//        System.out.println(getPerson(sqlSession, 1).toString());
+//    public static void main(String[] args) {
+//        List<String> strs = new ArrayList<>();
+//        strs.add("1");
+//        strs.add("2");
+//        strs.stream().forEach(s -> System.out.println(s));
+//        Collections.unmodifiableList(strs).stream().forEach(s -> System.out.println(s));
 //    }
+
+    public static void main(String[] args) throws Exception {
+        SqlSession sqlSession = getSqlSession();
+//        Person person = new Person();
+//        person.setId(6);
+//        person.setName("felixu");
+//        person.setAddress("Mars");
+//        person.setAge(26);
+//
+//        insert(sqlSession, person);
+//        sqlSession.commit();
+//        sqlSession.close();
+        System.out.println(getPerson(sqlSession, 1).toString());
+    }
 
     private static SqlSession getSqlSession() throws Exception{
         String resource = "/Users/felixu/github/learning/mybatis-learning/mybatis/src/main/java/top/felixu/mybatis/config/mybatis-config.xml";
@@ -45,7 +47,7 @@ public class MybatisDemo {
         return sqlSessionFactory.openSession(false);
     }
 
-    private static int insertPerson(SqlSession sqlSession, Person person) {
+    private static int insertPersonñ(SqlSession sqlSession, Person person) {
         PersonMapper mapper = sqlSession.getMapper(PersonMapper.class);
         return mapper.insert(person);
     }

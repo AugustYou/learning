@@ -5,7 +5,7 @@
 <configuration>
     <typeHandlers>
         <typeHandler handler="top.felixu.typehandler.TestTypeHandler"/>
-        <typeHandler handler="top.felixu.typehandler.MySpringTypeHandler"/>
+        <typeHandler handler="top.felixu.typehandler.MyTypeHandler"/>
 
         <!--<package name="top.felixu.typehandler"/>-->
     </typeHandlers>

@@ -13,6 +13,7 @@
         <module>mybatis</module>
         <module>generator</module>
         <module>mybatis-spring</module>
+        <module>felixu-mybatis</module>
     </modules>
 
     <properties>
@@ -23,6 +24,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
