@@ -1,10 +1,14 @@
-package top.felixu.v2.configuration;
+package top.felixu.v3.configuration;
 
-import top.felixu.v2.annotation.ISelect;
-import top.felixu.v2.mapper.MapperRegistry;
-import top.felixu.v2.proxy.MapperProxy;
-import top.felixu.v2.sqlsession.SqlSession;
-import top.felixu.v2.utils.PackageUtil;
+import top.felixu.v3.annotation.ISelect;
+import top.felixu.v3.executor.Executor;
+import top.felixu.v3.mapper.MapperRegistry;
+import top.felixu.v3.plugin.Interceptor;
+import top.felixu.v3.plugin.InterceptorChain;
+import top.felixu.v3.proxy.MapperProxy;
+import top.felixu.v3.sqlsession.SqlSession;
+import top.felixu.v3.utils.PackageUtil;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -18,9 +22,16 @@ public class Configuration {
 
     private String mapperScan;
     private MapperRegistry mapperRegistry = new MapperRegistry();
+    private final InterceptorChain interceptorChain = new InterceptorChain();
 
     public Configuration mapperScan(String path) {
         this.mapperScan = path;
+        return this;
+    }
+
+    public Configuration addPlugins(Interceptor[] interceptors) {
+        Optional.ofNullable(interceptors)
+                .ifPresent(is -> Arrays.asList(is).forEach(interceptor -> interceptorChain.addInterceptor(interceptor)));
         return this;
     }
 
@@ -61,5 +72,10 @@ public class Configuration {
 
     public MapperRegistry getMapperRegistry() {
         return mapperRegistry;
+    }
+
+    public Executor newExecutor(Executor executor) {
+        Executor e = (Executor) interceptorChain.pluginAll(executor);
+        return  e;
     }
 }

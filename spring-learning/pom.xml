@@ -5,20 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>top.felixu</groupId>
-    <artifactId>design-patten</artifactId>
+    <artifactId>spring-learning</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-    </properties>
-
     <modules>
-        <module>proxy</module>
-        <module>prototype</module>
-        <module>singleton</module>
-        <module>factory</module>
+        <module>spring-v1.0</module>
     </modules>
+
+
 </project>
