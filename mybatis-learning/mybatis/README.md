@@ -1,7 +1,7 @@
 ## Mybatis编程式工程
 ### 手写了MyTypeHandler    
 发现只要TypeHandler被注册，并且加了@MappedJdbcTypes注解，那么会对所有的ResultMap生效     
-James老师之前说必须显示的在ResultMap里面指定，与本地测试略有不同     
+之前必须显示的在ResultMap里面指定，现与本地测试略有不同     
 后查官网发现这么一句话      
 >  Since Mybatis 3.4.0 however, if a single TypeHandler is registered to handle a Java type, it will be used by default in ResultMaps using this Java type (i.e. even without includeNullJdbcType=true).      
 
