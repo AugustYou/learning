@@ -1,8 +1,8 @@
 # Module描述
-**felixu-mybatis**是自己手动实现V1、V2、V3模块
-**generator**是mybatis代码自动生成模块
-**jdbc**是原生jdbc连接数据库操作
-**mybatis**为mybatis编程式操作
+**felixu-mybatis**是自己手动实现V1、V2、V3模块        
+**generator**是mybatis代码自动生成模块       
+**jdbc**是原生jdbc连接数据库操作        
+**mybatis**为mybatis编程式操作      
 **mybatis-spring**是与Spring集成使用
 # 问题
 ## 1
