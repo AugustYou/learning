@@ -8,9 +8,17 @@
     <artifactId>spring-learning</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+    </dependencies>
+
     <modules>
-        <module>spring-v1.0</module>
+        <module>spring1.0</module>
+        <module>spring2.0</module>
     </modules>
-
-
 </project>
