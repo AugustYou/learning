@@ -1,8 +1,8 @@
 package top.felixu.demo.controller;
 
-import top.felixu.annotation.Autowired;
-import top.felixu.annotation.Controller;
-import top.felixu.annotation.RequestMapping;
+import top.felixu.framework.annotation.Autowired;
+import top.felixu.framework.annotation.Controller;
+import top.felixu.framework.annotation.RequestMapping;
 import top.felixu.demo.service.IUserService;
 
 /**

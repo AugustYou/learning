@@ -1,6 +1,6 @@
 package top.felixu.demo.service.impl;
 
-import top.felixu.annotation.Service;
+import top.felixu.framework.annotation.Service;
 import top.felixu.demo.service.IUserService;
 
 /**
