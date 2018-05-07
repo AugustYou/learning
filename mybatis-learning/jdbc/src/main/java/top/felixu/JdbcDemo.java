@@ -1,9 +1,6 @@
 package top.felixu;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 import static java.sql.Types.INTEGER;
 
@@ -16,7 +13,49 @@ public class JdbcDemo {
     private static String password = "felix19920320";
 
     public static void main(String[] args) {
-        insert(new Person(2, "felixu", 1, "Mars"));
+//        insert(new Person(2, "felixu", 1, "Mars"));
+        Person person = queryById(1);
+        System.out.println(person.toString());
+    }
+
+    public static Person queryById(int id) {
+        Connection conn = null;
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, user, password);
+            statement = conn.prepareStatement("SELECT * from person where id = ?");
+            statement.setInt(1, id);
+            rs = statement.executeQuery();
+            Person person = new Person();
+            while (rs.next()) {
+                person.setId(rs.getInt("id"));
+                person.setName(rs.getString("name"));
+                person.setAddress(rs.getString("address"));
+            }
+            return person;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != conn) {
+                    conn.close();
+                }
+                if (null != statement) {
+                    statement.close();
+                }
+                if (null != rs) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+
     }
 
     public static int insert(Person person) {
@@ -40,10 +79,6 @@ public class JdbcDemo {
                 if (null != conn) {
                     conn.close();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-            try {
                 if (null != statement) {
                     statement.close();
                 }
