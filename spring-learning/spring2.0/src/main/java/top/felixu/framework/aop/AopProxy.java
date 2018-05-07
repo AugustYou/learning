@@ -32,13 +32,14 @@ public class AopProxy implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        if (config.contains(method)) {
-            AopConfig.Aspect aspect = config.get(method);
+        Method m = this.target.getClass().getMethod(method.getName(), method.getParameterTypes());
+        if (config.contains(m)) {
+            AopConfig.Aspect aspect = config.get(m);
             aspect.getPoints()[0].invoke(aspect.getAspect(), args);
         }
         Object obj = method.invoke(this.target, args);
-        if (config.contains(method)) {
-            AopConfig.Aspect aspect = config.get(method);
+        if (config.contains(m)) {
+            AopConfig.Aspect aspect = config.get(m);
             aspect.getPoints()[1].invoke(aspect.getAspect(), args);
         }
         return obj;

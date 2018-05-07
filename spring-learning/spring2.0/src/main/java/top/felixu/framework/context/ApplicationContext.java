@@ -3,14 +3,19 @@ package top.felixu.framework.context;
 import top.felixu.framework.annotation.Autowired;
 import top.felixu.framework.annotation.Controller;
 import top.felixu.framework.annotation.Service;
+import top.felixu.framework.aop.AopConfig;
 import top.felixu.framework.beans.BeanDefinition;
 import top.felixu.framework.beans.BeanPostProcessor;
 import top.felixu.framework.beans.BeanWrapper;
-import top.felixu.framework.core.BeanFactory;
 import top.felixu.framework.context.support.BeanDefinitionReader;
+import top.felixu.framework.core.BeanFactory;
+import top.felixu.framework.utils.Try;
 
+import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @Author felixu
@@ -60,10 +65,11 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
     private void doDependencyInject() {
         this.beanDefinitionMap.forEach((key, value) -> {
             if (!value.isLazyInit()) {
-                getBean(key);
+                Object bean = getBean(key);
+                System.out.println(bean);
+                System.out.println(bean.getClass());
             }
         });
-
     }
 
     public void populateBean(String beanName, Object instance) {
@@ -142,15 +148,16 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
         BeanDefinition beanDefinition = this.beanDefinitionMap.get(name);
         Object instance = instantBean(beanDefinition);
         return Optional.ofNullable(instance)
-                .map(bean -> {
+                .map(Try.of(bean -> {
                     BeanPostProcessor beanPostProcessor = new BeanPostProcessor();
                     beanPostProcessor.postProcessBeforeInitialization(instance, name);
                     BeanWrapper beanWrapper = new BeanWrapper(bean);
+                    beanWrapper.setAopConfig(instantAopConfig(beanDefinition));
                     beanWrapper.setBeanPostProcessor(beanPostProcessor);
                     this.beanWrapperMap.put(name, beanWrapper);
                     populateBean(name, instance);
                     return beanWrapper;
-                })
+                }))
                 .orElse(null);
     }
 
@@ -170,6 +177,30 @@ public class ApplicationContext extends DefaultListableBeanFactory implements Be
             e.printStackTrace();
         }
         return null;
+    }
+
+    private AopConfig instantAopConfig(BeanDefinition beanDefinition) throws Exception {
+        AopConfig config = new AopConfig();
+
+        String expression = reader.getConfig().getProperty("pointCut");
+        String[] before = reader.getConfig().getProperty("aspectBefore").split("\\s");
+        String[] after = reader.getConfig().getProperty("aspectAfter").split("\\s");
+
+        String className = beanDefinition.getBeanClassName();
+        Class<?> clazz = Class.forName(className);
+
+        Pattern pattern = Pattern.compile(expression);
+
+        Class<?> aspectClass = Class.forName(before[0]);
+
+        for (Method method : clazz.getMethods()) {
+            Matcher matcher = pattern.matcher(method.toString());
+            if (matcher.matches()) {
+                // 将符合切面规则的类，加入到AOP的配置中
+                config.put(method, aspectClass.newInstance(), new Method[]{aspectClass.getMethod(before[1]), aspectClass.getMethod(after[1])});
+            }
+        }
+        return config;
     }
 
     public int getBeanDefinitionCount() {

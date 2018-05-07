@@ -1,5 +1,6 @@
 package top.felixu.framework.beans;
 
+import top.felixu.framework.aop.AopConfig;
 import top.felixu.framework.aop.AopProxy;
 import top.felixu.framework.core.FactoryBean;
 
@@ -48,5 +49,9 @@ public class BeanWrapper extends FactoryBean {
 
     public Class<?> getWrappedClass() {
         return getWrappedClass().getClass();
+    }
+
+    public void setAopConfig(AopConfig config) {
+        this.aopProxy.setConfig(config);
     }
 }

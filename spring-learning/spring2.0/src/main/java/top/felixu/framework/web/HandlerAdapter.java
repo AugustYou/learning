@@ -52,7 +52,8 @@ public class HandlerAdapter {
                         return (ModelAndView) r;
                     }
                     return null;
-                }).orElseGet(null);
+                })
+                .orElse(null);
     }
 
     private Object caseStringValue(String value, Class<?> clazz) {
