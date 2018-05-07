@@ -7,7 +7,7 @@ import top.felixu.framework.beans.BeanDefinition;
 import top.felixu.framework.beans.BeanPostProcessor;
 import top.felixu.framework.beans.BeanWrapper;
 import top.felixu.framework.core.BeanFactory;
-import top.felixu.framework.support.BeanDefinitionReader;
+import top.felixu.framework.context.support.BeanDefinitionReader;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Author felixu
  * @Date 2018/4/24
  */
-public class ApplicationContext implements BeanFactory {
+public class ApplicationContext extends DefaultListableBeanFactory implements BeanFactory {
 
     /**
      * 存储配置文件的路径
@@ -27,11 +27,6 @@ public class ApplicationContext implements BeanFactory {
      * 持有一个定位解析的Reader
      */
     private BeanDefinitionReader reader;
-
-    /**
-     * BeanDefinitionMap也就是Spring中的IOC容器
-     */
-    private final Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>(256);
 
     /**
      * 用了存储实例化bean，保证单例
