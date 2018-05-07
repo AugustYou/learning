@@ -4,6 +4,8 @@ import top.felixu.framework.annotation.Controller;
 import top.felixu.framework.annotation.RequestMapping;
 import top.felixu.framework.annotation.RequestParam;
 import top.felixu.framework.context.ApplicationContext;
+import top.felixu.framework.utils.AopProxyUtils;
+import top.felixu.framework.utils.Try;
 import top.felixu.framework.web.HandlerAdapter;
 import top.felixu.framework.web.HandlerMapping;
 import top.felixu.framework.web.ModelAndView;
@@ -221,8 +223,13 @@ public class DispatchServlet extends HttpServlet {
          */
         String[] beanNames = context.getBeanDefinitionNames();
         Arrays.stream(beanNames)
-                .forEach(beanName -> {
-                    Object instance = context.getBean(beanName);
+                .forEach(Try.of(beanName -> {
+                    /**
+                     * 加入aop之后，所有类均为代理类，就会导致注解判断失效
+                     * 所以判断用原始类，操作用代理类
+                     */
+                    Object proxy = context.getBean(beanName);
+                    Object instance = AopProxyUtils.getSingletonTarget(proxy);
                     Class<?> clazz = instance.getClass();
                     if (clazz.isAnnotationPresent(Controller.class)) {
                         String baseUrl = "";
@@ -238,11 +245,12 @@ public class DispatchServlet extends HttpServlet {
                                 String regex = ("/" + baseUrl + requestMapping.value().replaceAll("\\*", ".*")).replaceAll("/+", "/");
                                 Pattern pattern = Pattern.compile(regex);
                                 this.handlerMappings.add(new HandlerMapping(instance, method, pattern));
+                                System.out.println("Mapping:" + regex + " , " + method);
                             }
                         }
 
                     }
-                });
+                }));
     }
 
     /**

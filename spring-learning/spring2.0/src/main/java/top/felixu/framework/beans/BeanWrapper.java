@@ -1,5 +1,7 @@
 package top.felixu.framework.beans;
 
+import top.felixu.framework.aop.AopConfig;
+import top.felixu.framework.aop.AopProxy;
 import top.felixu.framework.core.FactoryBean;
 
 /**
@@ -19,13 +21,18 @@ public class BeanWrapper extends FactoryBean {
     private Object originalInstance;
 
     /**
+     * 持有AopProxy对象
+     */
+    private AopProxy aopProxy = new AopProxy();
+
+    /**
      * 观察者模式，一个监听
      */
     private BeanPostProcessor beanPostProcessor;
 
-    public BeanWrapper(Object object) {
-        this.wrapperInstance = object;
-        this.originalInstance = object;
+    public BeanWrapper(Object instance) {
+        this.wrapperInstance = aopProxy.getProxy(instance);
+        this.originalInstance = instance;
     }
 
     public BeanPostProcessor getBeanPostProcessor() {
@@ -42,5 +49,9 @@ public class BeanWrapper extends FactoryBean {
 
     public Class<?> getWrappedClass() {
         return getWrappedClass().getClass();
+    }
+
+    public void setAopConfig(AopConfig config) {
+        this.aopProxy.setConfig(config);
     }
 }
