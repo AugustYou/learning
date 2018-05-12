@@ -1,0 +1,20 @@
+= 用 Spring REST Docs 构建文档
+:toc: left
+This is an example output for a service running at http://localhost:8080:
+
+.request
+include::{snippets}/home/http-request.adoc[]
+
+.request body
+include::{snippets}/home/request-body.adoc[]
+
+.response
+include::{snippets}/home/http-response.adoc[]
+
+.response body
+include::{snippets}/home/response-body.adoc[]
+== 第一章
+=== 1.1
+== 第二章
+## 卧槽
+## 草草草
